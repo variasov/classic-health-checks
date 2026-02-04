@@ -34,7 +34,7 @@ patch_all()
 
 import logging
 from pydantic_settings import BaseSettings
-from classic.health_checks import HealthCheckTask
+from classic.health_checks import HealthCheckTask, HealthCheckSettingsMixin
 
 # Настройте базовый логгер
 logging.basicConfig(
@@ -43,9 +43,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-class AppSettings(BaseSettings):
-    HEALTHCHECK_FILE_PATH: str = '/tmp/gevent_app_healthy'
-    HEALTHCHECK_INTERVAL: float = 10.0
+class AppSettings(HealthCheckSettingsMixin, BaseSettings):
+   ...
 
 settings = AppSettings()
 

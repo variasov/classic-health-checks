@@ -1,7 +1,8 @@
 from .health_check_task import HealthCheckTask
-from .settings import BaseHealthCheckSettings
+from .settings import HealthCheckSettings, HealthCheckSettingsMixin
 
 __all__ = [
     'HealthCheckTask',
-    'BaseHealthCheckSettings',
+    'HealthCheckSettings',
+    'HealthCheckSettingsMixin',
 ]
