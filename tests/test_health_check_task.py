@@ -3,21 +3,16 @@ import threading
 import time
 from pathlib import Path
 
-from classic.health_checks import HealthCheckTask, BaseHealthCheckSettings
+from classic.health_checks import HealthCheckTask, HealthCheckSettings
 
 logger = logging.getLogger('test')
-
-
-class TestSettings(BaseHealthCheckSettings):
-    HEALTHCHECK_FILE_PATH: str
-    HEALTHCHECK_INTERVAL: float = 0.1
 
 
 def test_health_check_creates_directory(tmp_path: Path):
     """Тест: HealthCheckTask должен создавать родительскую директорию, если ее нет."""
     health_dir = tmp_path / "sub"
     health_file = health_dir / "healthy"
-    settings = TestSettings(HEALTHCHECK_FILE_PATH=str(health_file))
+    settings = HealthCheckSettings(HEALTHCHECK_FILE_PATH=str(health_file))
 
     assert not health_dir.exists()
 
@@ -30,9 +25,8 @@ def test_health_check_creates_directory(tmp_path: Path):
 def test_health_check_updates_file_timestamp(tmp_path: Path):
     """
     Тест: HealthCheckTask должен обновлять временную метку файла в цикле.
-    """ 
-    # Arrange
-    settings = TestSettings(
+    """
+    settings = HealthCheckSettings(
         HEALTHCHECK_FILE_PATH=str(tmp_path / "healthy"),
         HEALTHCHECK_INTERVAL=0.05,
     )

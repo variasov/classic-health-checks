@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 
-class BaseHealthCheckSettings(BaseSettings):
+class HealthCheckSettingsMixin:
     """
     Настройки конфигурации для задачи проверки работоспособности.
 
@@ -12,3 +12,7 @@ class BaseHealthCheckSettings(BaseSettings):
 
     HEALTHCHECK_INTERVAL: float = 10.0
     """Интервал в секундах между обновлениями файла проверки."""
+
+
+class HealthCheckSettings(HealthCheckSettingsMixin, BaseSettings):
+    ...

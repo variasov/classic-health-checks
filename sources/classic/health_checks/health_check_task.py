@@ -2,7 +2,7 @@ import time
 from logging import Logger
 from pathlib import Path
 
-from .settings import BaseHealthCheckSettings
+from .settings import HealthCheckSettingsMixin
 
 
 class HealthCheckTask:
@@ -24,7 +24,7 @@ class HealthCheckTask:
     def __init__(
         self,
         logger: Logger,
-        settings: BaseHealthCheckSettings,
+        settings: HealthCheckSettingsMixin,
     ) -> None:
         self.logger = logger
         self.filepath = Path(settings.HEALTHCHECK_FILE_PATH)
