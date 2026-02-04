@@ -15,7 +15,7 @@ pip install classic-health-checks
 
 ## Использование (Usage)
 
-Вот минимальный пример использования `HealthCheckTask` в отдельном потоке.
+Вот минимальный пример использования `HealthCheck` в отдельном потоке.
 
 
 ### Использование с `gevent`
@@ -25,7 +25,7 @@ pip install classic-health-checks
 pip install gevent
 ```
 
-`HealthCheckTask` легко интегрируется с `gevent`. Инициализируем и запускаем run в гринлете.
+`HealthCheck` легко интегрируется с `gevent`. Инициализируем и запускаем run в гринлете.
 ```python
 import gevent
 from gevent.monkey import patch_all
@@ -34,7 +34,7 @@ patch_all()
 
 import logging
 from pydantic_settings import BaseSettings
-from classic.health_checks import HealthCheckTask, HealthCheckSettingsMixin
+from classic.health_checks import HealthCheck, HealthCheckSettingsMixin
 
 # Настройте базовый логгер
 logging.basicConfig(
@@ -46,16 +46,16 @@ logger = logging.getLogger(__name__)
 class AppSettings(HealthCheckSettingsMixin, BaseSettings):
    ...
 
-settings = AppSettings()
+settings = AppSettings(HEALTHCHECK_FILE_PATH='/tmp/healthcheck')
 
 # 1. Создаем экземпляр
 
-health_check = HealthCheckTask(
+health_check = HealthCheck(
     logger=logger,
     settings=settings,
 )
 
-# 2. Запускаем HealthCheckTask и другие задачи в своих гринлетах
+# 2. Запускаем HealthCheck и другие задачи в своих гринлетах
 
 # Псевдо-задачи для примера
 class LongRunningTask:
