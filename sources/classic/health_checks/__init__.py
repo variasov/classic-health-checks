@@ -1,2 +1,2 @@
-from .health_check_task import HealthCheckTask
+from .health_check import HealthCheck
 from .settings import HealthCheckSettings, HealthCheckSettingsMixin

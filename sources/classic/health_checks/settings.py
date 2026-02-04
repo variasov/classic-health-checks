@@ -7,7 +7,7 @@ class HealthCheckSettingsMixin:
 
     Эти настройки могут быть загружены из переменных окружения или .env файла.
     """
-    HEALTHCHECK_FILE_PATH: str = '/tmp/healthcheck'
+    HEALTHCHECK_FILE_PATH: str
     """Путь к файлу, используемому для проверки работоспособности."""
 
     HEALTHCHECK_INTERVAL: float = 10.0
@@ -15,4 +15,4 @@ class HealthCheckSettingsMixin:
 
 
 class HealthCheckSettings(HealthCheckSettingsMixin, BaseSettings):
-    ...
+    pass

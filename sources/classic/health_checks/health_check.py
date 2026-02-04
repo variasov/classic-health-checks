@@ -5,7 +5,7 @@ from pathlib import Path
 from .settings import HealthCheckSettingsMixin
 
 
-class HealthCheckTask:
+class HealthCheck:
     """
     Задача для выполнения проверки работоспособности путем обновления
     временной метки файла.
