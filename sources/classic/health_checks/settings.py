@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class HealthCheckSettingsMixin:
@@ -15,4 +15,9 @@ class HealthCheckSettingsMixin:
 
 
 class HealthCheckSettings(HealthCheckSettingsMixin, BaseSettings):
-    pass
+
+    model_config = SettingsConfigDict(
+        env_file='.env',
+        env_file_encoding='utf-8',
+        extra='allow',
+    )

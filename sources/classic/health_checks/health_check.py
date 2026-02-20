@@ -1,5 +1,5 @@
 import time
-from logging import Logger
+import logging
 from pathlib import Path
 
 from .settings import HealthCheckSettingsMixin
@@ -23,10 +23,10 @@ class HealthCheck:
 
     def __init__(
         self,
-        logger: Logger,
         settings: HealthCheckSettingsMixin,
+        logger: logging.Logger = None,
     ) -> None:
-        self.logger = logger
+        self.logger = logger or logging.getLogger('classic.HealthCheck')
         self.filepath = Path(settings.HEALTHCHECK_FILE_PATH)
         self.interval = settings.HEALTHCHECK_INTERVAL
         self.filepath.parent.mkdir(parents=True, exist_ok=True)
