@@ -2,7 +2,7 @@ import time
 import logging
 from pathlib import Path
 
-from .settings import HealthCheckSettingsMixin
+from .settings import HealthCheckSettingsMixin, HealthCheckSettings
 
 
 class HealthCheck:
@@ -23,13 +23,14 @@ class HealthCheck:
 
     def __init__(
         self,
-        settings: HealthCheckSettingsMixin,
+        settings: HealthCheckSettingsMixin = None,
         logger: logging.Logger = None,
     ) -> None:
-        self.logger = logger or logging.getLogger('classic.HealthCheck')
+        settings = settings or HealthCheckSettings()
         self.filepath = Path(settings.HEALTHCHECK_FILE_PATH)
         self.interval = settings.HEALTHCHECK_INTERVAL
         self.filepath.parent.mkdir(parents=True, exist_ok=True)
+        self.logger = logger or logging.getLogger('classic.HealthCheck')
 
     def run(self) -> None:
         """
@@ -44,3 +45,5 @@ class HealthCheck:
             self.filepath.touch()
             time.sleep(self.interval)
             self.logger.debug('Healthcheck file written')
+
+    __call__ = run
